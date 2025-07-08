@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendaftaran Mahasiswa Baru - Tech Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="background-animation"></div>
+    
+    <div class="container">
+        <div class="header">
+            <div class="tech-logo">
+                <div class="logo-icon">⚡</div>
+                <h1>TECH UNIVERSITY</h1>
+                <p class="tagline">Future Starts Here</p>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <div class="form-header">
+                <h2>Pendaftaran Mahasiswa Baru</h2>
+                <p>Bergabunglah dengan generasi teknologi masa depan</p>
+            </div>
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="alert alert-error">
+                        {% for message in messages %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <form action="{{ url_for('submit_form') }}" method="POST" enctype="multipart/form-data" class="registration-form">
+                <div class="form-grid">
+                    <!-- Foto Profil -->
+                    <div class="form-group photo-upload">
+                        <label for="foto">Foto Profil</label>
+                        <div class="photo-preview">
+                            <img id="photoPreview" src="{{ url_for('static', filename='images/default-avatar.png') }}" alt="Preview">
+                            <div class="upload-overlay">
+                                <span>📷</span>
+                                <p>Klik untuk upload</p>
+                            </div>
+                        </div>
+                        <input type="file" id="foto" name="foto" accept="image/*" onchange="previewImage(this)">
+                        <small>Format: JPG, PNG, GIF. Max: 2MB</small>
+                    </div>
+
+                    <!-- Data Pribadi -->
+                    <div class="form-section">
+                        <h3>📋 Data Pribadi</h3>
+                        
+                        <div class="form-group">
+                            <label for="nama">Nama Lengkap *</label>
+                            <input type="text" id="nama" name="nama" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tanggal_lahir">Tanggal Lahir *</label>
+                            <input type="date" id="tanggal_lahir" name="tanggal_lahir" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="jenis_kelamin">Jenis Kelamin *</label>
+                            <select id="jenis_kelamin" name="jenis_kelamin" required>
+                                <option value="">Pilih Jenis Kelamin</option>
+                                <option value="L">Laki-laki</option>
+                                <option value="P">Perempuan</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="alamat">Alamat Lengkap *</label>
+                            <textarea id="alamat" name="alamat" rows="3" required></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Kontak -->
+                    <div class="form-section">
+                        <h3>📞 Informasi Kontak</h3>
+                        
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="telepon">Nomor Telepon/WhatsApp *</label>
+                            <input type="tel" id="telepon" name="telepon" required>
+                        </div>
+                    </div>
+
+                    <!-- Pendidikan -->
+                    <div class="form-section">
+                        <h3>🎓 Informasi Pendidikan</h3>
+                        
+                        <div class="form-group">
+                            <label for="asal_sekolah">Asal Sekolah *</label>
+                            <input type="text" id="asal_sekolah" name="asal_sekolah" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nilai">Nilai Rata-rata Rapor *</label>
+                            <input type="number" id="nilai" name="nilai" min="0" max="100" step="0.01" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="jurusan">Program Studi Pilihan *</label>
+                            <select id="jurusan" name="jurusan" required>
+                                <option value="">Pilih Program Studi</option>
+                                <option value="Teknik Informatika">Teknik Informatika</option>
+                                <option value="Sistem Informasi">Sistem Informasi</option>
+                                <option value="Teknik Komputer">Teknik Komputer</option>
+                                <option value="Data Science">Data Science</option>
+                                <option value="Cyber Security">Cyber Security</option>
+                                <option value="Game Development">Game Development</option>
+                                <option value="UI/UX Design">UI/UX Design</option>
+                                <option value="Digital Marketing">Digital Marketing</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Motivasi -->
+                    <div class="form-section full-width">
+                        <h3>💭 Motivasi</h3>
+                        
+                        <div class="form-group">
+                            <label for="motivasi">Ceritakan motivasi Anda memilih jurusan ini</label>
+                            <textarea id="motivasi" name="motivasi" rows="4" placeholder="Tuliskan motivasi dan tujuan Anda..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit">
+                        <span>🚀</span>
+                        Daftar Sekarang
+                    </button>
+                    <a href="{{ url_for('daftar_siswa') }}" class="btn-secondary">
+                        <span>👥</span>
+                        Lihat Daftar Siswa
+                    </a>
+                </div>
+            </form>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2025 Tech University. All rights reserved.</p>
+            <div class="tech-indicators">
+                <span class="indicator active"></span>
+                <span class="indicator"></span>
+                <span class="indicator"></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function previewImage(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('photoPreview').src = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // Animation effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add glitch effect to logo
+            const logo = document.querySelector('.logo-icon');
+            setInterval(() => {
+                logo.style.textShadow = `
+                    ${Math.random() * 2}px ${Math.random() * 2}px #ff0000,
+                    ${Math.random() * 2}px ${Math.random() * 2}px #00ff00,
+                    ${Math.random() * 2}px ${Math.random() * 2}px #0000ff
+                `;
+                setTimeout(() => {
+                    logo.style.textShadow = 'none';
+                }, 100);
+            }, 3000);
+
+            // Form validation animation
+            const inputs = document.querySelectorAll('input, select, textarea');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.classList.add('focused');
+                });
+                
+                input.addEventListener('blur', function() {
+                    if (!this.value) {
+                        this.parentElement.classList.remove('focused');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

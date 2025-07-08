@@ -1,0 +1,3 @@
+# Default avatar placeholder - this would normally be a binary image file
+# For testing purposes, we'll create a simple text placeholder that the app will handle
+DEFAULT_AVATAR_PLACEHOLDER
