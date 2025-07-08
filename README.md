@@ -217,15 +217,11 @@ pip install -r requirements.txt
 
 ## 📸 Screenshot
 
-Form pendaftaran dengan design modern cyberpunk theme, animasi background, dan fitur upload foto yang user-friendly.
-
-## 🤝 Contributing
-
-1. Fork repository
-2. Buat branch fitur baru (`git checkout -b feature/AmazingFeature`)
-3. Commit perubahan (`git commit -m 'Add some AmazingFeature'`)
-4. Push ke branch (`git push origin feature/AmazingFeature`)
-5. Buat Pull Request
+![photo1](base1.png)
+![photo2](base2.png)
+![photo3](input.png)
+![photo4](success.png)
+![photo5](list.png)
 
 ---
 
